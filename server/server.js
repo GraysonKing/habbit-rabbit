@@ -10,10 +10,7 @@ const connectionString = "mongodb://localhost:27017/HabbitRabbit";
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect(connectionString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(connectionString);
 
 const db = mongoose.connection;
 
