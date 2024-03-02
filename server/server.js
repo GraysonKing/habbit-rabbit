@@ -1,13 +1,13 @@
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const PORT = process.env.PORT || 5000;
+const connectionString = process.env.MONGODB_URI;
 
 // Schema imports.
 const Habit = require("./models/habitSchema");
-
-const connectionString = "mongodb://localhost:27017/HabbitRabbit";
 
 // Enable CORS middleware
 app.use(cors());
