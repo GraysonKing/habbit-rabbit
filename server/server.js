@@ -6,7 +6,7 @@ const { default: mongoose } = require("mongoose");
 const PORT = process.env.PORT || 5000;
 const connectionString = process.env.MONGODB_URI;
 
-// Schema imports.
+// Model imports.
 const Habit = require("./models/habitSchema");
 
 // Enable CORS middleware
