@@ -1,33 +1,69 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
+  const habits = [
+    {      
+      id: 1,
+      name: "One",
+      goal: 7,
+      frequency: "Daily",
+    },
+    {      
+      id: 2,
+      name: "Two",
+      goal: 7,
+      frequency: "Daily",
+    },
+    {      
+      id: 3,
+      name: "Three",
+      goal: 4,
+      frequency: "Weekly",
+    },
+  ]
+
+  function Header(props) {
+    return(
+      <header>
+        <h1>{props.name}</h1>
+      </header>
+    )
+  }
+
+  function Habits(props) {
+    console.log(props.habits);
+    return (
+      <section>
+        <ul>
+          {props.habits.map((habit) => (
+            <li key={habit.id}>{habit.name}</li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
+  
+
+  function Footer(props) {
+    return (
+      <footer>
+        <p>Copyright {props.year}</p>
+      </footer>
+    )
+  }
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <Header name="Habbit Rabbit"/>
       <div className="card">
+        <Habits habits={habits}/>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Footer year={new Date().getFullYear()}/>
     </>
   )
 }

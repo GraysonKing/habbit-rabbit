@@ -46,7 +46,7 @@ app.post("/api/addHabit", async (req, res) => {
     const newHabit = new Habit({
       name: req.params.name,
       goal: req.params.goal,
-      frequency: req.params.startDate,
+      frequency: req.params.frequency,
     });
 
     newHabit.save().then(res.sendStatus(200));
