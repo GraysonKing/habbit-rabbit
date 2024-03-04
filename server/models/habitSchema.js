@@ -26,6 +26,11 @@ const habitSchema = new mongoose.Schema({
     type: String,
     default: "Daily",
   },
+  currentStreak: {
+    // The current streak for the habit.
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Habit", habitSchema);
