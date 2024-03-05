@@ -27,20 +27,34 @@ function App() {
 
   return (
     <>
-      <Header name="Habbit Rabbit" />
-      <div className="card">
+      <Header
+        name="Habbit Rabbit"
+        className="bg-gray-800 text-white p-4 text-center font-bold"
+      />
+      <div className="container mx-auto mt-4">
         {!modal ? (
           <>
-            <Habits habits={habits} />
-            <button onClick={() => setModal(true)}>Add Habit</button>
+            <Habits
+              habits={habits}
+              className="mb-4 p-4 bg-white rounded shadow-md"
+            />
+            <button
+              onClick={() => setModal(true)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Add Habit
+            </button>
           </>
         ) : (
           <>
-            <AddHabit />
+            <AddHabit setModal={setModal}className="mb-4 p-4 bg-white rounded shadow-md" />
           </>
         )}
       </div>
-      <Footer year={new Date().getFullYear()} />
+      <Footer
+        year={new Date().getFullYear()}
+        className="bg-gray-200 text-center p-4"
+      />
     </>
   );
 }

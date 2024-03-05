@@ -1,8 +1,8 @@
 import React from "react";
 
-function Header({name}) {
+function Header({ name }) {
   return (
-    <header>
+    <header className="bg-gray-800 text-white p-4 text-center font-bold">
       <h1>{name}</h1>
     </header>
   );
