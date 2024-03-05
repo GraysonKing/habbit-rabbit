@@ -5,22 +5,11 @@ import "./App.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Habits from "./Components/Habits";
+const habitsURL = 'http://localhost:5000/api/getHabits'; // Replace with your actual server URL and endpoint
+
 
 function App() {
-  const fetchHabits = async () => {
-    try {
-      const response = await axios.get();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchHabits();
-  }, []);
-  const [count, setCount] = useState(0);
-
-  const habits = [
+  let habits = [
     {
       id: 1,
       name: "One",
@@ -40,6 +29,20 @@ function App() {
       frequency: "Weekly",
     },
   ];
+  const fetchHabits = async () => {
+    try {
+      const response = await axios.get(habitsURL);
+      habits = response.data.habits;
+      console.log(habits);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchHabits();
+  }, []);
+  const [count, setCount] = useState(0);
 
   return (
     <>

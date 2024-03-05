@@ -9,8 +9,9 @@ const connectionString = process.env.MONGODB_URI;
 // Model imports.
 const Habit = require("./models/habitSchema");
 
-// Enable CORS middleware
+// Enable CORS and handle preflight requests for all routes.
 app.use(cors());
+app.options("*", cors());
 
 // Connect to MongoDB
 mongoose.connect(connectionString);
@@ -32,7 +33,7 @@ app.get("/api/getHabits", async (req, res) => {
   try {
     Habit.find({}).then((habits) => {
       res.json({
-        data: habits,
+        habits: habits,
       });
     });
   } catch (error) {
