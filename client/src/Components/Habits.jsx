@@ -1,13 +1,15 @@
 import React from "react";
 
-function Habits(props) {
-  console.log(props.habits);
+function Habits({ habits }) {
+  console.log(habits);
   return (
     <section>
       <ul>
-        {props.habits.map((habit) => (
-          <li key={habit.id}>{habit.name}</li>
-        ))}
+        {habits ? (
+          habits.map((habit) => <li key={habit.id}>{habit.name}</li>)
+        ) : (
+          <p>Loading habits...</p>
+        )}
       </ul>
     </section>
   );

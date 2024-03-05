@@ -1,9 +1,9 @@
 import React from "react";
 
-function Footer(props) {
+function Footer({year}) {
   return (
     <footer>
-      <p>Copyright {props.year}</p>
+      <p>Copyright {year}</p>
     </footer>
   );
 }
