@@ -1,7 +1,6 @@
 import React from "react";
 
 function Habits({ habits }) {
-  console.log(habits);
   return (
     <section>
       <ul>

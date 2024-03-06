@@ -23,7 +23,6 @@ function AddHabit({ setModal }) {
         },
         timeout: 5000,
       });
-      console.log("Habit added successfully:", response.data);
       // Handle successful response (e.g., reset form, close modal)
     } catch (error) {
       console.error("Error adding habit:", error);

@@ -14,7 +14,6 @@ function App() {
   const fetchHabits = async () => {
     try {
       const response = await axios.get(getHabitsURL);
-      console.log(response.data.habits);
       setHabits(response.data.habits);
     } catch (error) {
       console.log(error);

@@ -47,7 +47,6 @@ app.get("/api/getHabits", async (req, res) => {
 
 app.post("/api/addHabit", async (req, res) => {
   try {
-    console.log(req.body);
     const newHabit = new Habit(req.body);
 
     newHabit.save().then(res.sendStatus(200));
