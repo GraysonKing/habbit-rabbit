@@ -9,6 +9,9 @@ const connectionString = process.env.MONGODB_URI;
 // Model imports.
 const Habit = require("./models/habitSchema");
 
+// Middleware
+app.use(express.json());
+
 // Enable CORS and handle preflight requests for all routes.
 app.use(cors());
 app.options("*", cors());
@@ -44,11 +47,8 @@ app.get("/api/getHabits", async (req, res) => {
 
 app.post("/api/addHabit", async (req, res) => {
   try {
-    const newHabit = new Habit({
-      name: req.params.name,
-      goal: req.params.goal,
-      frequency: req.params.frequency,
-    });
+    console.log(req.body);
+    const newHabit = new Habit(req.body);
 
     newHabit.save().then(res.sendStatus(200));
   } catch (error) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 const addHabitsURL = "http://localhost:5000/api/addHabit";
 
-function AddHabit({setModal}) {
+function AddHabit({ setModal }) {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [frequency, setFrequency] = useState("Daily");
@@ -17,7 +17,12 @@ function AddHabit({setModal}) {
         frequency,
       };
 
-      const response = await axios.post(addHabitsURL, newHabit);
+      const response = await axios.post(addHabitsURL, newHabit, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 5000,
+      });
       console.log("Habit added successfully:", response.data);
       // Handle successful response (e.g., reset form, close modal)
     } catch (error) {
@@ -27,8 +32,11 @@ function AddHabit({setModal}) {
   };
 
   return (
-    <section className="p-4 bg-white rounded-lg shadow-md"> {/* Added classes for styling */}
-      <h1 className="text-2xl font-bold mb-4">Add Habit</h1> {/* Added classes for heading */}
+    <section className="p-4 bg-white rounded-lg shadow-md">
+      {" "}
+      {/* Added classes for styling */}
+      <h1 className="text-2xl font-bold mb-4">Add Habit</h1>{" "}
+      {/* Added classes for heading */}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
@@ -57,7 +65,10 @@ function AddHabit({setModal}) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="frequency">
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="frequency"
+          >
             Frequency:
           </label>
           <select
@@ -71,10 +82,16 @@ function AddHabit({setModal}) {
             <option value="Monthly">Monthly</option>
           </select>
         </div>
-        <button onClick={() => setModal(false)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        <button
+          onClick={() => setModal(false)}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
           Cancel
         </button>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Add Habit
         </button>
       </form>
