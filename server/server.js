@@ -72,7 +72,7 @@ app.post("/api/updateHabit", async (req, res) => {
   }
 })
 
-app.get("/api/deleteHabit/:id", async (req, res) => {
+app.delete("/api/deleteHabit/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const habitToDelete = await Habit.findByIdAndDelete(id);
