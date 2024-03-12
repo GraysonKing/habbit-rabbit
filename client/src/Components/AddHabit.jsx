@@ -33,9 +33,7 @@ function AddHabit({ setModal }) {
   return (
     <section className="p-4 bg-white rounded-lg shadow-md">
       {" "}
-      {/* Added classes for styling */}
       <h1 className="text-2xl font-bold mb-4">Add Habit</h1>{" "}
-      {/* Added classes for heading */}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="name">

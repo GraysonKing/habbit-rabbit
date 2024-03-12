@@ -1,15 +1,16 @@
 import React from "react";
+import HabitItem from "./HabitItem";
 
 function Habits({ habits }) {
   return (
     <section>
-      <ul>
+      <div className="grid grid-cols-3 gap-4 p-2">
         {habits ? (
-          habits.map((habit) => <li key={habit.name}>{habit.name}</li>)
+          habits.map((habit) => <HabitItem key={habit._id} habit={habit} />)
         ) : (
           <p>Loading habits...</p>
         )}
-      </ul>
+      </div>
     </section>
   );
 }
