@@ -55,3 +55,35 @@ app.post("/api/addHabit", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+app.post("/api/updateHabit", async (req, res) => {
+  try {
+    const { id, ...updatedHabitData } = req.body; // Destructure ID and other data
+    const habitToUpdate = await Habit.findByIdAndUpdate(id, updatedHabitData, { new: true }); // Find and update
+
+    if (!habitToUpdate) {
+      return res.status(404).send("Habit not found");
+    }
+
+    res.status(200).json(habitToUpdate);
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).send("Internal Server Error");
+  }
+})
+
+app.get("/api/deleteHabit/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const habitToDelete = await Habit.findByIdAndDelete(id);
+
+    if (!habitToDelete) {
+      return res.status(404).send("Habit not found");
+    }
+
+    res.sendStatus(200); // No content needed in response
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).send("Internal Server Error");
+  }
+})
