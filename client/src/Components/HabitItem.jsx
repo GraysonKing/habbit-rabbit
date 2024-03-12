@@ -1,22 +1,11 @@
 import React from "react";
-import axios from "axios";
-const deleteHabitsURL = "http://localhost:5000/api/deleteHabit";
 
-function HabitItem({ habit }) {
+function HabitItem({ habit, onDelete }) {
     const handleDelete = async(id) => {
         if (window.confirm("Are you sure you want to delete this habit?")) {
-            await deleteHabit(id)
+            await onDelete(id)
         }
     }
-
-  const deleteHabit = async (id) => {
-    try {
-      const response = await axios.delete(`${deleteHabitsURL}/${id}`);
-      console.log("Habit deleted successfully:", response.data);
-    } catch (error) {
-      console.error("Error deleting habit:", error);
-    }
-  };
 
   return (
     <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
@@ -32,14 +21,14 @@ function HabitItem({ habit }) {
       </div>
       <div className="pb-6">
         <button
-          className="select-none rounded-lg bg-pink-500 mx-4 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="select-none rounded-lg bg-red-500 mx-4 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           type="button"
           onClick={() => handleDelete(habit._id)}
         >
           Delete
         </button>
         <button
-          className="select-none mx-4 rounded-lg bg-pink-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="select-none mx-4 rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           type="button"
         >
           Update

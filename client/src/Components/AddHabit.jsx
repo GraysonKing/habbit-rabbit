@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 const addHabitsURL = "http://localhost:5000/api/addHabit";
 
-function AddHabit({ setModal }) {
+function AddHabit({ setModal, onHabitAdded }) {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [frequency, setFrequency] = useState("Daily");
@@ -17,13 +17,17 @@ function AddHabit({ setModal }) {
         frequency,
       };
 
-      const response = await axios.post(addHabitsURL, newHabit, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        timeout: 5000,
-      });
-      // Handle successful response (e.g., reset form, close modal)
+      await axios
+        .post(addHabitsURL, newHabit, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          timeout: 5000,
+        })
+        .then(() => {
+          setModal(false);
+          onHabitAdded(); // signal data change.
+        });
     } catch (error) {
       console.error("Error adding habit:", error);
       // Handle errors appropriately (e.g., display error message)
@@ -81,13 +85,13 @@ function AddHabit({ setModal }) {
         </div>
         <button
           onClick={() => setModal(false)}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          className="select-none rounded-lg bg-red-500 mx-4 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="select-none mx-4 rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           Add Habit
         </button>
