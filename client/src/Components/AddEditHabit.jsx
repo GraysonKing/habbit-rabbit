@@ -1,36 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 const addHabitsURL = "http://localhost:5000/api/addHabit";
+const editHabitsURL = "http://localhost:5000/api/editHabit";
 
-function AddHabit({ setModal, onHabitAdded }) {
+function AddEditHabit({ setModal, onHabitUpdate, habitToEdit }) {
+  const action = habitToEdit ? 'edit' : 'add';
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [frequency, setFrequency] = useState("Daily");
+
+  useEffect(() => {
+    if (habitToEdit) {
+      setName(habitToEdit.name);
+      setGoal(habitToEdit.goal);
+      setFrequency(habitToEdit.frequency);
+    }
+  }, [habitToEdit]); // Update form fields when habitToEdit changes
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const newHabit = {
+      const updatedHabit = {
         name,
         goal: parseInt(goal), // Ensure goal is a number
         frequency,
       };
 
-      await axios
-        .post(addHabitsURL, newHabit, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          timeout: 5000,
-        })
-        .then(() => {
-          setModal(false);
-          onHabitAdded(); // signal data change.
-        });
+      action === "edit"
+        ? await axios.put(editHabitsURL + "/" + habitToEdit._id, updatedHabit) // Edit existing habit
+        : await axios.post(addHabitsURL, updatedHabit, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            timeout: 5000,
+          }); // Add new habit
+
+      setModal(false);
+      onHabitUpdate(); // Signal data change for both add and edit scenarios
     } catch (error) {
-      console.error("Error adding habit:", error);
-      // Handle errors appropriately (e.g., display error message)
+      console.error(
+        habitToEdit ? "Error editing habit:" : "Error adding habit:",
+        error
+      );
     }
   };
 
@@ -93,11 +105,16 @@ function AddHabit({ setModal, onHabitAdded }) {
           type="submit"
           className="select-none mx-4 rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
-          Add Habit
+          {action === 'edit' ? (
+            <p>Edit Habit</p>
+          ) : (
+            <p>Add Habit</p>
+          )}
+
         </button>
       </form>
     </section>
   );
 }
 
-export default AddHabit;
+export default AddEditHabit;

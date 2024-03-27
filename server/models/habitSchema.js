@@ -31,6 +31,7 @@ const habitSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  // TODO add total completions and last updated fields.
 });
 
 module.exports = mongoose.model("Habit", habitSchema);

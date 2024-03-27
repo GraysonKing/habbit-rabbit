@@ -56,10 +56,12 @@ app.post("/api/addHabit", async (req, res) => {
   }
 });
 
-app.post("/api/updateHabit", async (req, res) => {
+app.put("/api/editHabit/:id", async (req, res) => {
   try {
-    const { id, ...updatedHabitData } = req.body; // Destructure ID and other data
-    const habitToUpdate = await Habit.findByIdAndUpdate(id, updatedHabitData, { new: true }); // Find and update
+    const { id } = req.params; // Extract ID from path parameters
+    const { ...updatedHabitData } = req.body; // Destructure remaining data
+
+    const habitToUpdate = await Habit.findByIdAndUpdate(id, updatedHabitData, { new: true });
 
     if (!habitToUpdate) {
       return res.status(404).send("Habit not found");
@@ -70,7 +72,8 @@ app.post("/api/updateHabit", async (req, res) => {
     console.error("Error processing request:", error);
     res.status(500).send("Internal Server Error");
   }
-})
+});
+
 
 app.delete("/api/deleteHabit/:id", async (req, res) => {
   try {
@@ -80,6 +83,24 @@ app.delete("/api/deleteHabit/:id", async (req, res) => {
     if (!habitToDelete) {
       return res.status(404).send("Habit not found");
     }
+
+    res.sendStatus(200); // No content needed in response
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).send("Internal Server Error");
+  }
+})
+
+app.get("/api/markAsDone/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const habitToMarkDone = await Habit.findById(id);
+
+    if (!habitToDelete) {
+      return res.status(404).send("Habit not found");
+    }
+
+    // TODO: Update habit to increment completions and update last completion date.
 
     res.sendStatus(200); // No content needed in response
   } catch (error) {
